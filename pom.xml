@@ -18,13 +18,11 @@
 		<versao.spring>2.6.2</versao.spring>
 	</properties>
 	<dependencies>
-		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-cassandra</artifactId>
 			<version>${versao.spring}</version>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
