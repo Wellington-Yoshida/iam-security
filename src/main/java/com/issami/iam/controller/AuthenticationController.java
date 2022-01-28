@@ -2,12 +2,11 @@ package com.issami.iam.controller;
 
 import com.issami.iam.dto.LoginDTO;
 import com.issami.iam.dto.TokenDTO;
+import com.issami.iam.security.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +25,7 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<TokenDTO> auth(@RequestBody @Validated LoginDTO loginDTO){
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUser(), loginDTO.getPassword());
-
-        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-
-        return ResponseEntity.ok(TokenDTO.builder().build());
-
+        final TokenDTO tokenDTO = tokenService.gerarToken(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUser(), loginDTO.getPassword())));
+        return ResponseEntity.ok(tokenDTO);
     }
 }
