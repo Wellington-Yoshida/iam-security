@@ -2,8 +2,8 @@ package com.issami.iam.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,18 +12,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
-@Table
+@Document(collection = "cliente")
 public class Cliente implements Serializable, UserDetails {
 
     @Serial
     private static final long serialVersionUID = 2926378560008088016L;
 
-    @PrimaryKey
-    private UUID id;
+    @Id
+    private String id;
     private String nome;
     private String email;
     private String senha;
@@ -48,21 +47,21 @@ public class Cliente implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.isContaEstaExpirada();
+        return Boolean.FALSE.equals(this.isContaEstaExpirada());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isContaEstaBloqueada();
+        return Boolean.FALSE.equals(this.isContaEstaBloqueada());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.isContaEstaBloqueada();
+        return Boolean.FALSE.equals(this.isContaEstaBloqueada());
     }
 }

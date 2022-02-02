@@ -13,6 +13,7 @@ import java.util.Date;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 import static java.lang.Long.valueOf;
+import static java.lang.System.currentTimeMillis;
 
 @Service
 public class TokenServiceImpl implements TokenService {
@@ -29,7 +30,7 @@ public class TokenServiceImpl implements TokenService {
             final Cliente cliente = (Cliente) authentication.getPrincipal();
             final Date hoje = new Date();
             final Date dataDeExpiracao = new Date();
-            dataDeExpiracao.setTime(valueOf(jwtExpiration));
+            dataDeExpiracao.setTime(currentTimeMillis() + valueOf(jwtExpiration));
 
             return TokenDTO.builder().token(Jwts.builder()
                             .setIssuer("API IAM-SECURITY")

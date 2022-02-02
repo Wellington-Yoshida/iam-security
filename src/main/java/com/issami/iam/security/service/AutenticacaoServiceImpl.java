@@ -18,8 +18,8 @@ public class AutenticacaoServiceImpl implements UserDetailsService {
     private ClienteRepository clienteRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final Cliente cliente = clienteRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        final Cliente cliente = clienteRepository.findByEmail(email);
         if (isEmpty(cliente)) {
             throw  new ClienteNaoEncontratoException();
         }

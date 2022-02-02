@@ -1,13 +1,11 @@
 package com.issami.iam.repository;
 
 import com.issami.iam.entity.Cliente;
-import org.springframework.data.cassandra.repository.CassandraRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface ClienteRepository extends CassandraRepository<Cliente, UUID> {
+public interface ClienteRepository extends MongoRepository<Cliente, String> {
 
     Cliente findByEmail(String email);
 
