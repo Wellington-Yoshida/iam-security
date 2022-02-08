@@ -1,5 +1,6 @@
 package com.issami.iam.security.config;
 
+import com.issami.iam.security.filter.AutenticacaoTokenFilter;
 import com.issami.iam.security.service.AutenticacaoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -21,6 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AutenticacaoServiceImpl autenticacaoService;
+
+    @Autowired
+    private AutenticacaoTokenFilter autenticacaoTokenFilter;
 
     @Override
     @Bean
@@ -41,7 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST, "/auth").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(STATELESS);
+                .sessionManagement().sessionCreationPolicy(STATELESS)
+                .and().addFilterBefore(autenticacaoTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     //Configuration for static resources
