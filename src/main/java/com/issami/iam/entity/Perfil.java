@@ -1,13 +1,11 @@
 package com.issami.iam.entity;
 
 import lombok.Builder;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@Data
 @Builder
 public class Perfil implements GrantedAuthority, Serializable {
 
