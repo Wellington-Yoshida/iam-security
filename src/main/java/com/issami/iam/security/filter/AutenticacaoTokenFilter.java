@@ -1,6 +1,5 @@
 package com.issami.iam.security.filter;
 
-import com.issami.iam.entity.Perfil;
 import com.issami.iam.exception.AutenticacaoException;
 import com.issami.iam.repository.ClienteRepository;
 import com.issami.iam.security.service.TokenService;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static io.micrometer.core.instrument.util.StringUtils.isBlank;
 import static java.util.stream.Collectors.toList;
